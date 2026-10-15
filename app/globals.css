@@ -1,0 +1,180 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-highlight: var(--highlight);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+:root {
+  color-scheme: dark;
+  --radius: 0.75rem;
+  --background: #0b0f12;
+  --surface: #10161b;
+  --foreground: #e8eef2;
+  --card: #141b21;
+  --card-foreground: #e8eef2;
+  --popover: #141b21;
+  --popover-foreground: #e8eef2;
+  --primary: #3be3b0;
+  --primary-foreground: #04110c;
+  --highlight: #4aa8ff;
+  --secondary: #10161b;
+  --secondary-foreground: #e8eef2;
+  --muted: #10161b;
+  --muted-foreground: #8fa0ac;
+  --accent: #222c34;
+  --accent-foreground: #e8eef2;
+  --destructive: #ff7a7a;
+  --border: #222c34;
+  --input: #222c34;
+  --ring: #3be3b0;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --background: #f6f9fb;
+    --surface: #eaf0f4;
+    --foreground: #0d1a22;
+    --card: #ffffff;
+    --card-foreground: #0d1a22;
+    --popover: #ffffff;
+    --popover-foreground: #0d1a22;
+    --primary: #0b9e75;
+    --primary-foreground: #ffffff;
+    --highlight: #1f6fd1;
+    --secondary: #eaf0f4;
+    --secondary-foreground: #0d1a22;
+    --muted: #eaf0f4;
+    --muted-foreground: #566873;
+    --accent: #d9e2e8;
+    --accent-foreground: #0d1a22;
+    --destructive: #d23c3c;
+    --border: #d9e2e8;
+    --input: #d9e2e8;
+    --ring: #0b9e75;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-padding-top: 76px;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@utility text-gradient {
+  background-image: linear-gradient(90deg, var(--primary), var(--highlight));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility bg-gradient-brand {
+  background-image: linear-gradient(135deg, var(--primary), var(--highlight));
+}
+
+.hero-glow {
+  background: radial-gradient(
+    ellipse at 50% 0,
+    color-mix(in srgb, var(--primary) 22%, transparent),
+    transparent 65%
+  );
+}
+
+.wave-bar {
+  height: 20%;
+  background-image: linear-gradient(var(--primary), var(--highlight));
+  animation: wave 1.2s ease-in-out infinite;
+}
+
+.transcript-line {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: line-in 0.5s forwards;
+}
+
+.pulse-dot {
+  animation: pulse-dot 1.6s infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes wave {
+  50% {
+    height: 100%;
+  }
+}
+
+@keyframes line-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-dot {
+  50% {
+    opacity: 0.3;
+    transform: scale(1.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-bar,
+  .pulse-dot {
+    animation: none;
+  }
+  .transcript-line,
+  .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none;
+    transition: none;
+  }
+}
